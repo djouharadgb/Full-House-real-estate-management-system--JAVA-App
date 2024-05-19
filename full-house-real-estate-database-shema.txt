@@ -1,0 +1,45 @@
+CREATE TABLE agent (
+    agentID INT PRIMARY KEY ,
+    Agent_Name VARCHAR(100) NOT NULL,
+    contact_no VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    deals_amount DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE buyer (
+    buyerID INT PRIMARY KEY ,
+    B_name VARCHAR(100) NOT NULL,
+    contact VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+CREATE TABLE seller (
+    sellerID INT PRIMARY KEY ,
+    S_name VARCHAR(100) NOT NULL,
+    contact VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+CREATE TABLE property (
+    propertyID INT PRIMARY KEY ,
+    cost DECIMAL(15, 2) NOT NULL,
+    area DECIMAL(10, 2) NOT NULL,
+    bhk INT NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    street VARCHAR(100) NOT NULL,
+    city_state VARCHAR(100) NOT NULL,
+    pincode VARCHAR(10) NOT NULL,
+    agentID INT,
+    sellerID INT,
+    FOREIGN KEY (agentID) REFERENCES agent(agentID),
+    FOREIGN KEY (sellerID) REFERENCES seller(sellerID)
+);
+CREATE TABLE transaction (
+    transactionID INT PRIMARY KEY ,
+    propertyID INT,
+    buyerID INT,
+    sell_rent_date DATE NOT NULL,
+    actual_price DECIMAL(15, 2) NOT NULL,
+    agentID INT,
+    FOREIGN KEY (propertyID) REFERENCES property(propertyID),
+    FOREIGN KEY (buyerID) REFERENCES buyer(buyerID),
+    FOREIGN KEY (agentID) REFERENCES agent(agentID)
+);
